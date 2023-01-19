@@ -1,6 +1,7 @@
+<%@page import="com.douzone.mysite.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	
+	UserVo vo = (UserVo)request.getAttribute("vo");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,13 +17,13 @@
 			<div id="user">
 
 				<form id="join-form" name="joinForm" action="<%=request.getContextPath() %>/user" method="post">
-					<input type="hidden" name="a" value="join">
+					<input type="hidden" name="a" value="update">
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="">
+					<input id="name" name="name" type="text" value="<%=vo.getName() %>"><!-- 사용자 이름 표시 -->
 
 					<label class="block-label" for="email">이메일</label>
-					<input id="email" name="email" type="text" value="">
-					<input type="button" value="중복체크">
+					<!-- <input id="email" name="email" type="text" value=""> -->
+					<h4><%=vo.getEmail() %></h4> <!-- 사용자 이메일 표시 -->
 					
 					<label class="block-label">패스워드</label>
 					<input name="password" type="password" value="">
@@ -33,13 +34,7 @@
 						<label>남</label> <input type="radio" name="gender" value="male">
 					</fieldset>
 					
-					<fieldset>
-						<legend>약관동의</legend>
-						<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
-						<label>서비스 약관에 동의합니다.</label>
-					</fieldset>
-					
-					<input type="submit" value="가입하기">
+					<input type="submit" value="수정하기">
 					
 				</form>
 			</div>
