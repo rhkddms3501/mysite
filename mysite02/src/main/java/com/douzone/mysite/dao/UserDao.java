@@ -144,8 +144,10 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 
 		try {
+			
+			conn = getConnection();
+			
 			if(vo.getPassword() == null || vo.getPassword().isEmpty() || vo.getPassword().isBlank() || vo.getPassword().contains(" ")) {
-				conn = getConnection();
 				
 				String sql = "update user set name = ?, gender = ? where no = ?";
 				pstmt = conn.prepareStatement(sql);
@@ -154,7 +156,6 @@ public class UserDao {
 				pstmt.setString(2, vo.getGender());
 				pstmt.setLong(3, vo.getNo());
 			}else {
-				conn = getConnection();
 				
 				String sql = "update user set name = ?, password = password(?), gender = ? where no = ?";
 				pstmt = conn.prepareStatement(sql);
@@ -164,8 +165,6 @@ public class UserDao {
 				pstmt.setString(3, vo.getGender());
 				pstmt.setLong(4, vo.getNo());
 			}
-
-
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
