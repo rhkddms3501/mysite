@@ -21,7 +21,7 @@ public class GuestbookDao {
 		try {
 			conn = getConnection();
 			
-			String sql ="select no, name, password, message, date_format(reg_date, '%Y-%m-%d') from guestbook";
+			String sql ="select no, name, password, message, date_format(reg_date, '%Y-%m-%d') from guestbook order by reg_date desc";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
