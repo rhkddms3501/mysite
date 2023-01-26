@@ -16,7 +16,6 @@ public class GuestbookController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// MainController -> MainActionFactory()
 		String actionName = request.getParameter("a");
 		ActionFactory af = new GuestbookActionFactory();
 		Action action = af.getAction(actionName);
