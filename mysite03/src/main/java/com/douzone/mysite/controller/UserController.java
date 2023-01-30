@@ -57,4 +57,18 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update() {
+		return "user/update";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(HttpSession session, UserVo vo) {
+		userService.update(vo);
+		UserVo authUser = userService.findUser(vo.getNo());
+		session.setAttribute("authUser", authUser);
+		
+		return "redirect:/user/update";
+	}
 }

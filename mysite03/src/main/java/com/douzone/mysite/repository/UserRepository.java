@@ -26,6 +26,7 @@ public class UserRepository {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
+			
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -33,9 +34,13 @@ public class UserRepository {
 
 				Long no = rs.getLong(1);
 				String name = rs.getString(2);
+				String email = rs.getString(3);
+				String gender = rs.getString(5);
 
 				result.setNo(no);
 				result.setName(name);
+				result.setEmail(email);
+				result.setGender(gender);
 
 			}
 //			pstmt.executeUpdate();
@@ -80,10 +85,14 @@ public class UserRepository {
 				Long no = rs.getLong(1);
 				String name = rs.getString(2);
 				String email = rs.getString(3);
+				String password = rs.getString(4);
+				String gender = rs.getString(5);
 
 				result.setNo(no);
 				result.setName(name);
 				result.setEmail(email);
+				result.setPassword(password);
+				result.setGender(gender);
 
 			}
 //			pstmt.executeUpdate();
