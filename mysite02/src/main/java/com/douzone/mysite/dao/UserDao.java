@@ -77,10 +77,12 @@ public class UserDao {
 				Long no = rs.getLong(1);
 				String name = rs.getString(2);
 				String email = rs.getString(3);
+				String gender = rs.getString(5);
 
 				result.setNo(no);
 				result.setName(name);
 				result.setEmail(email);
+				result.setGender(gender);
 
 			}
 //			pstmt.executeUpdate();

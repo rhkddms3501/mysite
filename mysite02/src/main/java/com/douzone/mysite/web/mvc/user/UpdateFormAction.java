@@ -41,5 +41,4 @@ public class UpdateFormAction implements Action {
 		request.setAttribute("vo", vo); // vo이름 바꿔도 되고 안바꿔도 되고
 		MvcUtil.forward("user/updateform", request, response);
 	}
-
 }

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.douzone.mysite.vo.BoardVo;
-import com.douzone.mysite.vo.GuestbookVo;
 
 public class BoardDao {
 	public List<BoardVo> findAll(String searchWord, Long limit, Long offset) {
@@ -47,7 +46,6 @@ public class BoardDao {
 				
 				result.add(vo);
 			}
-			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -70,6 +68,7 @@ public class BoardDao {
 		
 		return result;
 	}
+	
 	public BoardVo findNo(Long no) {
 		BoardVo result = new BoardVo();
 		
@@ -102,7 +101,6 @@ public class BoardDao {
 				result.setUserNo(rs.getLong(9));
 				result.setUserName(rs.getString(10));
 			}
-			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -125,6 +123,7 @@ public class BoardDao {
 		
 		return result;
 	}
+	
 	public int findMaxPage(String searchWord) {
 		int result = 0;
 		
@@ -142,7 +141,6 @@ public class BoardDao {
 			while(rs.next()) {
 				result = (int) rs.getLong(1);
 			}
-			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -200,10 +198,12 @@ public class BoardDao {
 			}
 		}
 	}
+	
 	public void Reply(BoardVo vo) {
 		updateReply(vo);
 		insertReply(vo);
 	}
+	
 	public void updateReply(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -253,6 +253,7 @@ public class BoardDao {
 			}
 		}		
 	}
+	
 	public void insertReply(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -290,6 +291,7 @@ public class BoardDao {
 			}
 		}
 	}
+	
 	public void modify(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -323,6 +325,7 @@ public class BoardDao {
 			}
 		}		
 	}
+	
 	public void hitUp(Long no) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -352,6 +355,7 @@ public class BoardDao {
 		}
 		
 	}	
+	
 	public void deleteByNo(Long no) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -382,6 +386,7 @@ public class BoardDao {
 		}
 		
 	}
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 		

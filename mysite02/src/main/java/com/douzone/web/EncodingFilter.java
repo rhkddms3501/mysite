@@ -32,6 +32,5 @@ public class EncodingFilter extends HttpFilter implements Filter {
 	}
 
 	public void destroy() {
-
 	}
 }

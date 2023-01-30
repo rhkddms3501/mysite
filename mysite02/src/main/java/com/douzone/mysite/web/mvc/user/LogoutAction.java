@@ -21,5 +21,4 @@ public class LogoutAction implements Action {
 		
 		MvcUtil.redirect(request.getContextPath(), request, response);
 	}
-
 }

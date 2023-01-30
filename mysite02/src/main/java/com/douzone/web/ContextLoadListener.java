@@ -13,7 +13,5 @@ public class ContextLoadListener implements ServletContextListener {
 	}
 	
     public void contextDestroyed(ServletContextEvent sce)  { 
-    
     }
-	
 }

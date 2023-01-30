@@ -15,5 +15,4 @@ public class JoinSuccessAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MvcUtil.forward("user/joinsuccess", request, response);
 	}
-
 }

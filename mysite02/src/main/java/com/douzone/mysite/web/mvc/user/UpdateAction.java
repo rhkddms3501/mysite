@@ -51,5 +51,4 @@ public class UpdateAction implements Action {
 		MvcUtil.redirect(request.getContextPath() + "/user?a=updateform", request, response);
 
 	}
-
 }
