@@ -30,7 +30,7 @@
 						<tr>
 							<td>[${vo.no }]</td>
 							<!-- vo.depth를 통해 답글인지 아닌지 여부 확인 및 padding처리 -->
-							<!-- 게시글 클릭 시 action=view, 게시글no, offset, 현재 페이지넘버, 검색어를 가지고 이동 -->
+							<!-- parameter :  action = view, 게시글no, offset, currentPage, searchWord -->
 							<c:choose>
 								<c:when test="${vo.depth == 0 }">
 									<td style="text-align:left; padding-left:${vo.depth * 20}px">
@@ -49,7 +49,7 @@
 							<td>${vo.regDate }</td>
 							<td>
 								<!-- 로그인 유저가 글 작성자인 경우에만 삭제 버튼 보이기 -->
-								<!-- 삭제 아이콘 클릭 시 action=delete, 게시물no, 현재 페이지넘버를 가지고 이동-->
+								<!-- parameter : action = delete, 게시물no, currentPage -->
 								<c:if test="${sessionScope.authUser.no == vo.userNo}">
 									<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}&offset=${currentPage}" class="del">삭제</a>
 								</c:if>
@@ -59,7 +59,7 @@
 				</table>
 				
 				<!-- 게시글 검색 -->
-				<!-- 게시글 검색 시 action=search, 검색어를 가지고 이동 -->			
+				<!-- parameter :  action = search, searchWord -->			
 				<form id="search_form" action="${pageContext.request.contextPath }/board" method="post">
 					<input type="hidden" name="a" value="search"> <input
 						type="text" id="kwd" name="searchWord" value="${searchWord }">
@@ -70,7 +70,7 @@
 				<!-- ◀ 클릭시 현재 페이지 -5페이지의 페이지범위에서 첫번째 페이지로 -->
 				<!-- ▶ 클릭시 현재 페이지 -5페이지의 페이지범위에서 첫번째 페이지로 -->
 				<!-- 페이지 숫자 클릭 시 해당 페이지로 -->
-				<!-- offset, 검색어를 가지고 이동 -->
+				<!-- parameter :  offset, searchWord -->
 				<div class="pager">
 					<ul>
 						<li><a href="${pageContext.request.contextPath }/board?offset=${offset-5}&searchWord=${searchWord}">◀</a></li>
@@ -95,7 +95,7 @@
 				
 				<!-- 글 쓰기 -->
 				<!-- 로그인한 유저에게만 글쓰기 버튼 보이기 -->
-				<!-- 글 쓰기 버튼 클릭 시 action=writeform 으로 이동 -->
+				<!-- parameter :  action = writeform, currentPage, searchWord  -->
 				<c:if test="${not empty sessionScope.authUser.no }">
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath }/board?a=writeform&currentPage=${currentPage}&searchWord=${searchWord}" id="new-book">글쓰기</a>

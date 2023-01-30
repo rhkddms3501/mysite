@@ -14,6 +14,8 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
+				<!-- 글 수정 폼 -->
+				<!-- parameter : action = modify, 게시글no, ssearchWord, currentPage, title, content -->
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
 					<input type="hidden" name="a" value="modify" />
 					<input type="hidden" name="no" value="${boardVo.no }" />
@@ -36,6 +38,8 @@
 						</tr>
 					</table>
 					<div class="bottom">
+						<!-- 글 수정 취소 버튼 -->
+						<!-- parameter : action = view, 게시글no, currentPage, searchWord -->
 						<a href="${pageContext.request.contextPath }/board?a=view&no=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}">취소</a>
 						<input type="submit" value="수정">
 					</div>

@@ -25,6 +25,7 @@ public class WriteAction implements Action {
 		vo.setTitle(title);
 		vo.setContents(contents);
 		
+		// 게시글 추가
 		new BoardDao().insert(vo);
 		
 		MvcUtil.redirect(request.getContextPath() + "/board", request, response);

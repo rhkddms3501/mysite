@@ -17,6 +17,7 @@ public class ModifyformAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long no = Long.parseLong(request.getParameter("no"));
 		
+		// 유저번호로 게시글 찾기
 		BoardVo boardVo = new BoardDao().findNo(no);
 		String contents = boardVo.getContents();
 		boardVo.setContents(contents.replace("<br>", "\r\n"));

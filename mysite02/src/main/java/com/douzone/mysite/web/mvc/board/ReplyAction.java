@@ -29,6 +29,7 @@ public class ReplyAction implements Action {
 		vo.setTitle(title);
 		vo.setContents(contents);
 		
+		// 답글 달기
 		new BoardDao().Reply(vo);
 		
 		request.setAttribute("searchWord", searchWord);

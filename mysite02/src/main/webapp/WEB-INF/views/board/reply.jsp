@@ -14,6 +14,8 @@
 	<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
+				<!-- 답글 쓰기 입력 폼 -->
+				<!-- parameter : action = reply, 로그인한 유저 no, 답글 쓸려던 글 no, currentPage, searchWord, title, content -->
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
 					<input type = "hidden" name = "a" value="reply">
 					<input type = "hidden" name = "userNo" value="${sessionScope.authUser.no }">
@@ -36,6 +38,8 @@
 						</tr>
 					</table>
 					<div class="bottom">
+						<!-- 답글 달기 취소 버튼 -->
+						<!-- parameter : actrion = view, 답글 쓸려던 글 no, currentPage, searchWord -->
 						<a href="${pageContext.request.contextPath }/board?a=view&no=${replyNo}&currentPage=${currentPage}&searchWord=${searchWord}">취소</a>
 						<input type="submit" value="등록">
 					</div>

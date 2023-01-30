@@ -28,8 +28,12 @@ public class ModifyAction implements Action {
 		vo.setTitle(title);
 		vo.setContents(contents);
 		
+		// 게시글 수정
 		new BoardDao().modify(vo);
 		
+		// redirect에 한글이 들어갈 시 ???로 나오는 문제
+		// 원래 되던건 브라우저에서 자동으로 encoding을 해주기 때문
+		// 직접 한글을 encoding 후 redirect에 사용
 		String encodedParam = URLEncoder.encode(searchWord, "UTF-8");
 		MvcUtil.redirect(request.getContextPath() + "/board?a=view&no=" + no + "&currentPage=" + currentPage + "&searchWord=" + encodedParam, request, response);
 	}

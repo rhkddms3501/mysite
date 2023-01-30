@@ -11,6 +11,7 @@ import java.util.List;
 import com.douzone.mysite.vo.BoardVo;
 
 public class BoardDao {
+	// 전체 게시글 리스트
 	public List<BoardVo> findAll(String searchWord, Long limit, Long offset) {
 		List<BoardVo> result = new ArrayList<>();
 	
@@ -69,6 +70,7 @@ public class BoardDao {
 		return result;
 	}
 	
+	// 게시글 하나
 	public BoardVo findNo(Long no) {
 		BoardVo result = new BoardVo();
 		
@@ -124,6 +126,7 @@ public class BoardDao {
 		return result;
 	}
 	
+	// 마지막 페이지 (페이지 사이즈)
 	public int findMaxPage(String searchWord) {
 		int result = 0;
 		
@@ -164,6 +167,7 @@ public class BoardDao {
 		return result;
 	}
 	
+	// 게시글 입력
 	public void insert(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -199,11 +203,13 @@ public class BoardDao {
 		}
 	}
 	
+	// 답글 달기
 	public void Reply(BoardVo vo) {
 		updateReply(vo);
 		insertReply(vo);
 	}
 	
+	// 답글달기 - 답글 남기려는 글 이후의 orderNo + 1
 	public void updateReply(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -254,6 +260,7 @@ public class BoardDao {
 		}		
 	}
 	
+	// 답글달기 - 답글 남기려는  글 다음 자리에 답글 추가
 	public void insertReply(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -292,6 +299,7 @@ public class BoardDao {
 		}
 	}
 	
+	// 게시글 수정
 	public void modify(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -326,6 +334,7 @@ public class BoardDao {
 		}		
 	}
 	
+	// 조회수 업데이트
 	public void hitUp(Long no) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -356,6 +365,7 @@ public class BoardDao {
 		
 	}	
 	
+	// 게시글 삭제
 	public void deleteByNo(Long no) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
