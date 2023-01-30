@@ -17,9 +17,6 @@ public class DeleteAction implements Action {
 		Long no = Long.parseLong(request.getParameter("no"));
 		Long offset = Long.parseLong(request.getParameter("offset"));
 		
-		System.out.println(offset);
-		
-		
 		new BoardDao().deleteByNo(no);
 		
 		MvcUtil.redirect(request.getContextPath() + "/board?offset=" + offset, request, response);

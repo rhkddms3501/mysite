@@ -20,13 +20,11 @@ public class ListAction implements Action {
 		Long limit = 10L;
 		Long offset = 0L;
 		
-		
 		if(searchWord == null) {
 			searchWord = "";
 		}
 		
 		int maxPage = new BoardDao().findMaxPage(searchWord);
-		
 		
 		if(request.getParameter("offset") != null) {
 			offset = Long.parseLong(request.getParameter("offset"));
@@ -47,7 +45,6 @@ public class ListAction implements Action {
 		request.setAttribute("maxPage", maxPage / 10 + 1);
 		request.setAttribute("currentPage", (offset.intValue() + 10) / 10 );
 		
-//		System.out.println("currentPage" + (offset.intValue() + 10) / 10 );		
 		MvcUtil.forward("board/list", request, response);
 	}
 }

@@ -32,16 +32,15 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board">글목록</a>
+					<a href="${pageContext.request.contextPath }/board?offset=${currentPage }&searchWord=${searchWord}">글목록</a>
 					<c:if test="${sessionScope.authUser.no == boardVo.userNo}">
-						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${boardVo.no}">글수정</a>
+						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}">글수정</a>
 					</c:if>
 					<c:if test="${not empty sessionScope.authUser.no }">
-						<a href="${pageContext.request.contextPath }/board?a=replyform&borderNo=${boardVo.no}" id="new-book">답글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board?a=replyform&borderNo=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}" id="new-book">답글쓰기</a>
 					</c:if>
 				</div>
 			</div>
-			
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />

@@ -19,6 +19,8 @@ public class ViewAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long no = Long.parseLong(request.getParameter("no"));
+		Long currentPage = Long.parseLong(request.getParameter("currentPage"));
+		String searchWord = request.getParameter("searchWord") == null ? "" : request.getParameter("searchWord");
 
 		// 쿠키 읽어오기
 		Cookie[] cookies = request.getCookies();
@@ -48,21 +50,24 @@ public class ViewAction implements Action {
 			cookie = new Cookie("visit", "[" + no + "]");
 			new BoardDao().hitUp(no);
 		}
-		int h = Integer.parseInt(LocalTime.now().format(DateTimeFormatter.ofPattern("HH")));
-		int m = Integer.parseInt(LocalTime.now().format(DateTimeFormatter.ofPattern("mm")));
-		int s = Integer.parseInt(LocalTime.now().format(DateTimeFormatter.ofPattern("ss")));
+		// 자정 - 현재시간 = 자정 까지 남은 시간
+		LocalTime now = LocalTime.now();
+		int h = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("HH")));
+		int m = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("mm")));
+		int s = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("ss")));
 		int remainTime = 86400 - ((h*3600) + (m*60) + s);
 		cookie.setPath(request.getContextPath()); // Path 설정
 		cookie.setMaxAge(remainTime); // 하루 동안 유지
 		response.addCookie(cookie);
 
-
 		BoardVo boardVo = new BoardDao().findNo(no);
 		request.setAttribute("boardVo", boardVo);
 		String contents = boardVo.getContents();
 		boardVo.setContents(contents.replace("\r\n", "<br>"));
+		
+		request.setAttribute("searchWord", searchWord);
+		request.setAttribute("currentPage", currentPage);
 
 		MvcUtil.forward("board/view", request, response);
-
 	}
 }

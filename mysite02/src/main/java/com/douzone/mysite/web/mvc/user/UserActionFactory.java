@@ -32,5 +32,4 @@ public class UserActionFactory extends ActionFactory {
 		
 		return action;
 	}
-
 }

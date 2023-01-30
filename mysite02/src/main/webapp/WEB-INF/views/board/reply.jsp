@@ -18,6 +18,8 @@
 					<input type = "hidden" name = "a" value="reply">
 					<input type = "hidden" name = "userNo" value="${sessionScope.authUser.no }">
 					<input type = "hidden" name = "replyNo" value="${replyNo }">
+					<input type = "hidden" name = "currentPage" value="${currentPage }">
+					<input type = "hidden" name = "searchWord" value="${searchWord }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">답글쓰기</th>
@@ -34,7 +36,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board">취소</a>
+						<a href="${pageContext.request.contextPath }/board?a=view&no=${replyNo}&currentPage=${currentPage}&searchWord=${searchWord}">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

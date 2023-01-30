@@ -20,6 +20,8 @@ public class ReplyAction implements Action {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("content");
 		contents = contents.replace("\r\n", "<br>");
+		Long currentPage = Long.parseLong(request.getParameter("currentPage"));
+		String searchWord = request.getParameter("searchWord") == null ? "" : request.getParameter("searchWord");
 		
 		BoardVo vo = new BoardVo();
 		vo.setUserNo(userNo);
@@ -28,7 +30,10 @@ public class ReplyAction implements Action {
 		vo.setContents(contents);
 		
 		new BoardDao().Reply(vo);
-		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
+		
+		request.setAttribute("searchWord", searchWord);
+		request.setAttribute("currentPage", currentPage);
+		
+		MvcUtil.redirect(request.getContextPath() + "/board?offset=" + currentPage + "&searchWord=" + searchWord, request, response);
 	}
-
 }

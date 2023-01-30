@@ -1,6 +1,7 @@
 package com.douzone.mysite.web.mvc.board;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ public class ModifyAction implements Action {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("content");
 		contents = contents.replace("\r\n", "<br>");
+		Long currentPage = Long.parseLong(request.getParameter("currentPage"));
+		String searchWord = request.getParameter("searchWord") == null ? "" : request.getParameter("searchWord");
 		
 		BoardVo vo = new BoardVo();
 		vo.setNo(no);
@@ -27,8 +30,7 @@ public class ModifyAction implements Action {
 		
 		new BoardDao().modify(vo);
 		
-		MvcUtil.redirect(request.getContextPath() + "/board?a=view&no=" + no, request, response);
-
+		String encodedParam = URLEncoder.encode(searchWord, "UTF-8");
+		MvcUtil.redirect(request.getContextPath() + "/board?a=view&no=" + no + "&currentPage=" + currentPage + "&searchWord=" + encodedParam, request, response);
 	}
-
 }
