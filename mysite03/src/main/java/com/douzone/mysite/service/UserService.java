@@ -20,11 +20,16 @@ public class UserService {
 		return userRepository.findByEmailAndPassword(vo);
 	}
 
-	public void update(UserVo vo) {
-		userRepository.update(vo);
+	public UserVo getUser(Long no) {
+		return userRepository.findByNo(no);
 	}
-
+	
 	public UserVo findUser(Long no) {
 		return userRepository.findByNo(no);
 	}
+
+	public void updateUser(UserVo vo) {
+		userRepository.update(vo);
+	}
 }
+
