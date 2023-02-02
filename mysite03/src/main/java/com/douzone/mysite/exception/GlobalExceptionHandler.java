@@ -3,6 +3,8 @@ package com.douzone.mysite.exception;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+	
+	private static final Log logger = LogFactory.getLog(GlobalExceptionHandler.class);
+	
 //	@ExceptionHandler(UserRepositoryException.class) //이런식으로 내가 만든 exception 사용 가능
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handlerException(Exception e) {
@@ -18,7 +23,7 @@ public class GlobalExceptionHandler {
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		
-		System.out.println(errors.toString());
+		logger.error(errors.toString());
 		
 		
 		// 2. 사과페이지 (3. 정상종료)
