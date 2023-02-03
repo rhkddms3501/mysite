@@ -24,12 +24,20 @@ public class BoardDao {
 			
 			String sql ="select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name"
 					+ " from board a join user b"
-					+ "	on a.user_no = b.no"
-					+ "	where title like '%"+ searchWord + "%'"					
-					+ " order by g_no desc, o_no"
-					+ " limit " + limit
-					+ " offset " + offset;
+					+ "		on a.user_no = b.no"
+					+ "	where a.title like ?"					
+					+ "		or a.contents like ?"					
+					+ " order by a.g_no desc, a.o_no"
+					+ " limit ?" 
+					+ " offset ?";
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "%"+searchWord+"%");
+			pstmt.setString(2, "%"+searchWord+"%");
+			pstmt.setLong(3, limit);
+			pstmt.setLong(4, offset);
+			
+			
 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -137,8 +145,15 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql ="select count(no) from board where title like '%"+ searchWord + "%'";
+			String sql ="select count(no)"
+					+ " from board"
+					+ " where title like ?"
+					+ " 	or contents like ?";
+			
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "%"+searchWord+"%");
+			pstmt.setString(2, "%"+searchWord+"%");
 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -176,8 +191,9 @@ public class BoardDao {
 			conn = getConnection();
 			
 			String sql = 
-					  "insert into board"
-					+ " select null, ?, ?, 0, now(), max(g_no)+1, 1, 0, ? from board";
+					"insert into board " + 
+					"select null, ?, ?, 0, now(), ifnull(max(g_no)+1, 0), 1, 0, ? " + 
+					"from board";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getTitle());
