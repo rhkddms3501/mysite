@@ -28,12 +28,6 @@ public class ListAction implements Action {
 
 		// 페이지 사이즈
 		int maxPage = new BoardDao().findMaxPage(searchWord);
-		System.out.println("=============================================");
-		System.out.println("searchWord 확인 = " + searchWord);
-		System.out.println("request.getParameter(\"offset\") 확인 = " + request.getParameter("offset"));
-		System.out.println("maxPage 확인 = " + maxPage);
-		System.out.println();
-
 
 		// offset이 0 보다 작을 경우 0으로 초기화
 		if (request.getParameter("offset") != null) {
@@ -45,7 +39,6 @@ public class ListAction implements Action {
 			}
 		}
 		
-		System.out.println("offset (1) = " + offset);
 		// offset이 페이지 사이즈를 넘어가면 마지막 페이지로 초기화
 		if (offset > maxPage) {
 
@@ -55,7 +48,6 @@ public class ListAction implements Action {
 				offset = (long) (maxPage / 10) * 10;
 			}
 		}
-		System.out.println("offset (2) = " + offset);
 
 		if (maxPage % 10 == 0) {
 			maxPage = maxPage / 10;
@@ -66,8 +58,6 @@ public class ListAction implements Action {
 		// 게시글 리스트
 		List<BoardVo> list = new BoardDao().findAll(searchWord, limit, offset);
 
-		System.out.println("offset (3) = " + offset);
-		
 		// 게시글 리스트, 검색어, offset, 페이지 사이즈, 현재 페이지
 		request.setAttribute("list", list);
 		request.setAttribute("searchWord", searchWord);
