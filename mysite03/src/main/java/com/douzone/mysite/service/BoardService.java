@@ -12,53 +12,88 @@ import com.douzone.mysite.vo.BoardVo;
 
 @Service
 public class BoardService {
-	
+
 	@Autowired
 	private BoardRepository boardRepository;
-	
+
 	private static final int LIST_SIZE = 5; // 리스팅되는 게시물의 수
-	private static final int PAGE_SIZE = 5; // 리스팅되는 게시물의 수
-	
-	public void addContents(BoardVo vo) {
+	private static final Long PAGE_SIZE = 10L; // 리스팅되는 게시물의 수
+
+	public Map<String, Object> getContentsList(String getOffset, String getSearchWord) {
 		
-	}
-	
-	public BoardVo getContents(Long no) {
-		return null;
-	}
-	
-	public BoardVo getContents(Long no, Long UserNo) {
-		return null;
-	}
-	
-	public void updateContents(BoardVo vo) {
+		System.out.println("getOffset ====================== " + getOffset);
 		
-	}
-	
-	public void deleteContents(Long no, Long userNo) {
+		String searchWord = getSearchWord;
+		Long offset = 0L;
+
+		if (searchWord == null) {
+			searchWord = "";
+		}
+		int maxPage = boardRepository.getLastPage(searchWord);
 		
-	}
-	
-	public Map<String, Object> getContentsList(int page, String keyword) {
+		if (getOffset != null) {
+			offset = Long.parseLong(getOffset);
+			if (offset < 0) {
+				offset = 0L;
+			} else {
+				offset = offset * 10 - 10;
+			}
+		}
 		
-		int totlaCount = boardRepository.getTotalCount(keyword);
+		if (offset > maxPage) {
+
+			if (maxPage % 10 == 0) {
+				offset = (long) (maxPage-10);
+			} else {
+				offset = (long) (maxPage / 10) * 10;
+			}
+		}
 		
-		// 1. view에서 게시판 리스트를 렌더링 하기 위한 데이터 값 계산
-		int beginPage = 0;
-		int prePage = 0;
-		int nextPage = 0;
-		int endPage = 0;
+		if (maxPage % 10 == 0) {
+			maxPage = maxPage / 10;
+		} else {
+			maxPage = maxPage / 10 + 1;
+		}
 		
-		// 2. 리스트 가져오기
-		List<BoardVo> list = boardRepository.findAllByPageAndKeyWord(page, keyword, LIST_SIZE);
+		List<BoardVo> list = boardRepository.findBySearchWordAndOffsetAndPageSize(searchWord, offset, PAGE_SIZE);
 		
-		// 3. 리스트 정보를 맵에 저장
 		Map<String, Object> map = new HashMap<>();
-//		Map<String, Object> map = Map.of("", value);
-		
-		
-		
+		map.put("list", list);
+		map.put("searchWord", searchWord);
+		map.put("offset", ((((offset.intValue() / 50) + 1) * 5) - 4));
+		map.put("maxPage", maxPage);
+		map.put("currentPage", (offset.intValue() + 10) / 10 );
 		
 		return map;
+	}
+	
+	public void addContents(BoardVo vo) {
+		boardRepository.insert(vo);
+	}
+	
+	public Map<String, Object> getContents(String getNo, String getCurrentPage, String getSearchWord) {
+		Long no = Long.parseLong(getNo);
+		String currentPage = getCurrentPage;
+		String searchWord = getSearchWord == null ? "" : getSearchWord;
+		
+		BoardVo vo = boardRepository.selectByNo(no);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardVo", vo);
+		map.put("currentPage", currentPage);
+		map.put("searchWord", searchWord);
+		return map;
+	}
+	
+	public void updateContents(String getNo, String getTitle, String getContents, String getCurrentPage, String getSearchWord) {
+		Long no = Long.parseLong(getNo);
+		
+		
+		boardRepository.updateByNo(no, getTitle, getContents);
+	}
+	
+	public void deleteContents(String getNo) {
+		Long no = Long.parseLong(getNo);
+		boardRepository.deleteByNo(no);
 	}
 }
