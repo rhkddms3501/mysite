@@ -10,25 +10,14 @@
 <link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div>
-	<h1>받아온 값 확인</h1>
-	<p>list = ${list }</p>
-	<p>searchWord = ${searchWord }</p>
-	<p>offset = ${offset }</p>
-	<p>maxPage = ${maxPage }</p>
-	<p>currentPage = ${currentPage }</p>
-</div>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<!-- 글 수정 폼 -->
-				<!-- parameter : action = modify, 게시글no, ssearchWord, currentPage, title, content -->
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/modify">
 					<input type="hidden" name="no" value="${boardVo.no }" />
  					<input type="hidden" name="searchWord" value="${searchWord }" />
 					<input type="hidden" name="currentPage" value="${currentPage }" />
-					
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
@@ -45,8 +34,6 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<!-- 글 수정 취소 버튼 -->
-						<!-- parameter : action = view, 게시글no, currentPage, searchWord -->
 						<a href="${pageContext.request.contextPath }/board/view?no=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}">취소</a>
 						<input type="submit" value="수정">
 					</div>

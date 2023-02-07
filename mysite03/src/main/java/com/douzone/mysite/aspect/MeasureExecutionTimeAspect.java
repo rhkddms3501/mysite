@@ -25,7 +25,7 @@ public class MeasureExecutionTimeAspect {
 		String className = pjp.getTarget().getClass().getName();
 	      String methodName = pjp.getSignature().getName();
 	      String taskName = className + "." + methodName;
-	      System.out.println("[Excution Time][" + taskName + "]   " + totalTime + "milis");
+//	      System.out.println("[Excution Time][" + taskName + "]   " + totalTime + "milis");
 		
 		
 		return result;

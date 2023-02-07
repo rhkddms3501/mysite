@@ -71,6 +71,15 @@ public class BoardService {
 		boardRepository.insert(vo);
 	}
 	
+	public Map<String, Object> addReply(BoardVo vo, String currentPage, String searchWord) {
+		boardRepository.insertReply(vo);
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", currentPage);
+		map.put("searchWord", searchWord);
+		return map;
+		
+	}
+	
 	public Map<String, Object> getContents(String getNo, String getCurrentPage, String getSearchWord) {
 		Long no = Long.parseLong(getNo);
 		String currentPage = getCurrentPage;
@@ -96,4 +105,8 @@ public class BoardService {
 		Long no = Long.parseLong(getNo);
 		boardRepository.deleteByNo(no);
 	}
+
+	
+
+	
 }

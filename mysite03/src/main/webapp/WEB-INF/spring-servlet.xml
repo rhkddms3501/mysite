@@ -13,12 +13,8 @@
 	<!-- auto proxy -->
 	<aop:aspectj-autoproxy />
 
-	<!-- 
-		validator,
-		conversionService,
-		messageConverter,
-		argumentResolver 를 등록
-	-->
+	<!-- validator, conversionService, messageConverter, argumentResolver 를 
+		등록 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean
@@ -39,7 +35,8 @@
 			</bean>
 		</mvc:message-converters>
 		<mvc:argument-resolvers>
-			<bean class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
+			<bean
+				class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
@@ -49,22 +46,22 @@
 	<!-- Inteceptors -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/user/auth"/>
+			<mvc:mapping path="/user/auth" />
 			<bean class="com.douzone.mysite.security.LoginInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/user/logout"/>
+			<mvc:mapping path="/user/logout" />
 			<bean class="com.douzone.mysite.security.LogoutInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<mvc:exclude-mapping path="/user/auth"/>
-			<mvc:exclude-mapping path="/user/logout"/>
-			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/auth" />
+			<mvc:exclude-mapping path="/user/logout" />
+			<mvc:exclude-mapping path="/assets/**" />
 			<bean class="com.douzone.mysite.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
+
 	<!-- ViewResolver -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -75,15 +72,30 @@
 	</bean>
 
 	<!-- Message Source -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-	   <property name="basenames">
-	      <list>
-	      	<value>messages/messages_ko</value>
-	      	<value>messages/messages_en</value>
-	      </list>
-	   </property>
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages/messages_ko</value>
+				<value>messages/messages_en</value>
+			</list>
+		</property>
+	</bean>
+	<!-- Multipart Resolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<property name="maxInMemorySize" value="52428800" />
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
 	</bean>
 
+	<!-- mvc url-resource mapping -->
+	<!-- <mvc:resources mapping="/images/**" location="classpath:" /> -->
+	<mvc:resources mapping="/assets/upload-images/**"
+		location="file:/mysite-uploads/" />
 
 	<context:annotation-config />
 	<context:component-scan

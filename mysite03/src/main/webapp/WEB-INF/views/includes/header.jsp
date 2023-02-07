@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="header">
-			<h1>MySite</h1>
+			<h1>${site.title }</h1>
 			<ul>
 			<!-- authUser는 세션 컨텍스트 부분 안에 들어있으니 알아서 찾을 것임. 동일한 이름이 없으면. -->
 			<c:choose>

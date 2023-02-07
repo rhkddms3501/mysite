@@ -33,7 +33,10 @@ public class BoardRepository {
 		sqlSession.insert("board.insert", vo);
 	}
 
-	
+	public void insertReply(BoardVo vo) {
+		sqlSession.update("board.updateReply", vo);
+		sqlSession.insert("board.insertReply", vo);
+	}
 
 	
 
@@ -67,5 +70,7 @@ public class BoardRepository {
 		sqlSession.delete("board.deleteByNo", no);
 		
 	}
+
+	
 
 }

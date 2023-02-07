@@ -10,20 +10,10 @@
 <link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div>
-	<h1>받아온 값 확인</h1>
-	<p>list = ${list }</p>
-	<p>searchWord = ${searchWord }</p>
-	<p>offset = ${offset }</p>
-	<p>maxPage = ${maxPage }</p>
-	<p>currentPage = ${currentPage }</p>
-</div>
 	<div id="container">
 	<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<!-- 글쓰기 입력 폼 -->
-				<!-- parameter : actrion = write, 로그인한 유저 no, title, content -->
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
 					<input type = "hidden" name = "userNo" value="${sessionScope.authUser.no }">
 					<table class="tbl-ex">
@@ -42,8 +32,6 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<!-- 글 쓰기 취소 버튼 -->
-						<!-- parameter : currentPage, searchWord -->
 						<a href="${pageContext.request.contextPath }/board?offset=${currentPage}&searchWord=${searchWord}">취소</a>
 						<input type="submit" value="등록">
 					</div>

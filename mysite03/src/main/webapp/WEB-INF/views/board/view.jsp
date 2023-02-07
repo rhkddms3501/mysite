@@ -13,19 +13,10 @@
 <link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div>
-	<h1>받아온 값 확인</h1>
-	<p>list = ${list }</p>
-	<p>searchWord = ${searchWord }</p>
-	<p>offset = ${offset }</p>
-	<p>maxPage = ${maxPage }</p>
-	<p>currentPage = ${currentPage }</p>
-</div>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board" class="board-form">
-				<!-- 게시글 출력 -->
 				<table class="tbl-ex">
 					<tr>
 						<th colspan="2">글보기</th>
@@ -44,18 +35,12 @@
 					</tr>
 				</table>
 				<div class="bottom">
-				<!-- 이전 목록 페이지로 이동 -->
-				<!-- parameter : offset, searchWord -->
 					<a href="${pageContext.request.contextPath }/board?offset=${currentPage }&searchWord=${searchWord}">글목록</a>
-						<!-- 글작성자가 로그인 한 유저 일 때 현재 글 수정 버튼 보이기  -->
-						<!-- parameter : action = modifyform, 게시글no, currentPage, searchWord -->
 					<c:if test="${sessionScope.authUser.no == boardVo.userNo}">
 						<a href="${pageContext.request.contextPath }/board/modify?no=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}">글수정</a>
 					</c:if>
-					<!-- 로그인한 상태 일 때 답글 쓰기 버튼 보이기-->
-					<!-- parameter : action = replyform, 게시글no, currentPage, searchWord -->
 					<c:if test="${not empty sessionScope.authUser.no }">
-						<a href="${pageContext.request.contextPath }/board?a=replyform&borderNo=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}" id="new-book">답글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board/reply?borderNo=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}" id="new-book">답글쓰기</a>
 					</c:if>
 				</div>
 			</div>
