@@ -16,11 +16,15 @@ public class MainController {
 	@Autowired
 	private SiteService siteService;
 	
+//	@RequestMapping("/")
+//	public String index(Model model) {
+//		SiteVo site = siteService.getSite();
+//		model.addAttribute("site", site);
+//		System.out.println("메인 컨트롤러");
+//		return "main/index";
+//	}
 	@RequestMapping("/")
-	public String index(Model model) {
-		SiteVo site = siteService.getSite();
-		model.addAttribute("site", site);
-		System.out.println("메인 컨트롤러");
+	public String index() {
 		return "main/index";
 	}
 	
