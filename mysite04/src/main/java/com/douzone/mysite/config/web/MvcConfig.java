@@ -22,13 +22,13 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
-
+	
 	// View Resolver
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views");
+		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 		viewResolver.setExposeContextBeansAsAttributes(true);
 		viewResolver.setExposedContextBeanNames("site");
@@ -41,9 +41,9 @@ public class MvcConfig implements WebMvcConfigurer {
 	public StringHttpMessageConverter stringHttpMessageConverter() {
 		StringHttpMessageConverter messageConverter = new StringHttpMessageConverter();
 		messageConverter.setSupportedMediaTypes(
-				Arrays.asList(
-						new MediaType("text", "html", Charset.forName("utf-8"))
-				)
+			Arrays.asList(
+				new MediaType("text", "html", Charset.forName("utf-8"))
+			)
 		);
 		
 		return messageConverter;
@@ -51,16 +51,15 @@ public class MvcConfig implements WebMvcConfigurer {
 	
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		Jackson2ObjectMapperBuilder builder = 
-				new Jackson2ObjectMapperBuilder()
-				.indentOutput(true)
-				.dateFormat(new SimpleDateFormat("yyyy-mm-dd"));
+		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
+			.indentOutput(true)
+			.dateFormat(new SimpleDateFormat("yyyy-mm-dd"));
 		
 		MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter(builder.build());
 		messageConverter.setSupportedMediaTypes(
-				Arrays.asList(
-						new MediaType("application", "json", Charset.forName("utf-8"))
-				)
+			Arrays.asList(
+				new MediaType("application", "json", Charset.forName("utf-8"))
+			)
 		);
 		
 		return messageConverter;
@@ -77,55 +76,4 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
-	
-	
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
