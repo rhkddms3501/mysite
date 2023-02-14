@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MyBatisConfig {
 	
+	/* applicationContext.xml, MyBatis SqlSessionFactoryBean */
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext applicationContext) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
@@ -22,6 +23,7 @@ public class MyBatisConfig {
 		return sqlSessionFactory.getObject();
 	}
 	
+	/* applicationContext.xml, MyBatis SqlSession */
 	@Bean
 	public SqlSession sqlSession(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);

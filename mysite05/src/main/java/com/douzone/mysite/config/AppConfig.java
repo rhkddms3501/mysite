@@ -9,7 +9,8 @@ import com.douzone.mysite.config.app.DBConfig;
 import com.douzone.mysite.config.app.MyBatisConfig;
 
 @Configuration
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy /* spring-servlet, auto proxy */
+/* applicationContext.xml, context:annotation-config, context:component-scan */
 @ComponentScan({"com.douzone.mysite.service", "com.douzone.mysite.repository", "com.douzone.mysite.exception", " com.douzone.mysite.aspect"})
 @Import({DBConfig.class, MyBatisConfig.class})
 public class AppConfig {

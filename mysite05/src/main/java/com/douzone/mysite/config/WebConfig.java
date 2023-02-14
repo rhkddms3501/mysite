@@ -17,11 +17,12 @@ import com.douzone.mysite.event.ApplicationContextEventListener;
 import com.douzone.mysite.interceptor.SiteInterceptor;
 
 @Configuration
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy /* spring-servlet, auto proxy */
+/* spring-servlet.xml, context:annotation-config, context:component-scan */
 @ComponentScan({"com.douzone.mysite.controller"})
 @Import({MvcConfig.class, SecurityConfig.class, MessageSourceConfig.class, FileuploadConfig.class})
 public class WebConfig implements WebMvcConfigurer {
-	// Site Inteceptor
+	/* spring-servlet, Site Inteceptor */	
 	@Bean
 	public HandlerInterceptor siteInterceptor() {
 		return new SiteInterceptor();
@@ -34,7 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
 			.addPathPatterns("/**");
 	}
 	
-	// Application Context Event Listener
+	/* spring-servlet.xml, Application Context Event Listener */	
 	@Bean
 	public ApplicationContextEventListener applicationContextEventListener() {
 		return new ApplicationContextEventListener();

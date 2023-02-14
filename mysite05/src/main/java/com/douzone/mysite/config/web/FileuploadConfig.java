@@ -17,7 +17,7 @@ public class FileuploadConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
 	
-	// Multipart Resolver
+	/* spring-servlet.xml, Multipart Resolver */
 	@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -28,7 +28,7 @@ public class FileuploadConfig implements WebMvcConfigurer {
 		return multipartResolver;
 	}
 
-	// url-resource mapping
+	/* spring-servlet.xml, mvc url-resource mapping */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry

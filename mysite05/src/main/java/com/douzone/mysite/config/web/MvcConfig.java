@@ -24,7 +24,8 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
 	
-	// View Resolver
+	
+	/* spring-servlet.xml, ViewResolver */
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -37,7 +38,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		return viewResolver;
 	}
 	
-	// Message Converters
+	/* spring-servlet.xml, messageConverter */ 
 	@Bean
 	public StringHttpMessageConverter stringHttpMessageConverter() {
 		StringHttpMessageConverter messageConverter = new StringHttpMessageConverter();
@@ -50,6 +51,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		return messageConverter;
 	}
 	
+	/* spring-servlet.xml, messageConverter */ 
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
@@ -66,12 +68,14 @@ public class MvcConfig implements WebMvcConfigurer {
 		return messageConverter;
 	}
 
+	/* spring-servlet.xml, messageConverter */ 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(stringHttpMessageConverter());
 		converters.add(mappingJackson2HttpMessageConverter());
 	}
 
+	/* 에러페이지..? */ 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry

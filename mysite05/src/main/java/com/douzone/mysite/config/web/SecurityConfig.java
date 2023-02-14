@@ -17,7 +17,7 @@ import com.douzone.mysite.security.LogoutInterceptor;
 @Configuration
 public class SecurityConfig implements WebMvcConfigurer {
 	
-	// Argument Resolver
+	/* spring-servlet.xml, Argument Resolver */
 	@Bean
 	public HandlerMethodArgumentResolver handlerMethodArgumentResolver() {
 		return new AuthUserHandlerMethodArgumentResolver();
@@ -28,7 +28,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 		resolvers.add(handlerMethodArgumentResolver());
 	}
 	
-	// Interceptors
+	/* spring-servlet.xml, Interceptors */	
 	@Bean
 	public HandlerInterceptor loginInterceptor() {
 		return new LoginInterceptor();

@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 @PropertySource("classpath:com/douzone/mysite/app/jdbc.properties")
 public class DBConfig {
 	
+	/* applicationContext.xml, Connection pool DataSource */
 	@Autowired
 	private Environment env;
 	@Bean
