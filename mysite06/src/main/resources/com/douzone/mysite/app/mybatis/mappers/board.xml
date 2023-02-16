@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- #{}, ${} 차이 -->
+<mapper namespace="board">
+
+	<select id="getLastPage" parameterType="string" resultType="integer"> 
+		<![CDATA[
+			select count(*) 
+			from board 
+			where title like '%${_parameter }%'
+				or contents like '%${_parameter }%'
+		]]>
+	</select>
+	
+	<resultMap type="boardvo" id="findAllList">
+		<id property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="contents" column="contents" />
+		<result property="hit" column="hit" />
+		<result property="regDate" column="reg_date" />
+		<result property="groupNo" column="g_no" />
+		<result property="orderNo" column="o_no" />
+		<result property="depth" column="depth" />
+		<result property="userNo" column="user_no" />
+		<result property="userName" column="name" />
+	</resultMap>
+	<select id="findBySearchWordAndOffsetAndPageSize" parameterType="map" resultMap="findAllList">
+		<![CDATA[
+			select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name
+			from board a join user b
+			on a.user_no = b.no
+			where title like '%${searchWord }%'
+				or contents like '%${searchWord }%'
+			order by g_no desc, o_no
+			limit #{pageSize }
+			offset #{offset }
+		]]>
+	</select>
+	
+	<resultMap type="boardvo" id="findContentsByNo">
+		<id property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="contents" column="contents" />
+		<result property="hit" column="hit" />
+		<result property="regDate" column="reg_date" />
+		<result property="groupNo" column="g_no" />
+		<result property="orderNo" column="o_no" />
+		<result property="depth" column="depth" />
+		<result property="userNo" column="user_no" />
+		<result property="userName" column="name" />
+	</resultMap>
+	<select id="selectByNo" parameterType="long" resultMap="findContentsByNo">
+		<![CDATA[
+			select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name
+			from board a join user b
+				on a.user_no = b.no
+			where a.no = #{no }
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[
+			insert into board
+			select null, #{title }, #{contents }, 0, now(), ifnull(max(g_no)+1, 0), 1, 0, #{userNo }
+			from board
+		]]>
+	</insert>
+	
+	<update id="updateReply" parameterType="boardvo">
+		<![CDATA[
+			update board
+			set o_no = o_no + 1
+			where g_no = (
+							select g_no
+							from(
+									select g_no
+									from board
+									where no = #{replyNo}
+								)a
+							)
+			and o_no > (
+							select o_no
+							from(
+									select o_no
+									from board
+									where no = #{replyNo}
+								)b
+						)
+			
+		]]>
+	</update>
+	
+	<insert id="insertReply" parameterType="boardvo">
+		<![CDATA[
+			insert into board
+			select null, #{title }, #{contents }, 0, now(), g_no, o_no + 1, depth + 1, #{userNo }
+			from board
+			where no = #{replyNo }
+		]]>
+	</insert>
+	
+	<update id="updateByNo" parameterType="map">
+		<![CDATA[
+			update board set title = #{title }, contents = #{contents } where no = #{no }
+		]]>
+	</update>
+	
+	<delete id="deleteByNo" parameterType="long">
+		<![CDATA[
+			delete 
+			from board 
+			where no = #{no }
+		]]>
+	</delete>
+</mapper>
