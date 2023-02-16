@@ -6,18 +6,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileuploadService {
 	
-	@Autowired
-	private Environment env;
-	
-	private static String SAVE_PATH = "/mysite-uploads";
+	private static String SAVE_PATH = "/mysite-uploads/upload-images";
 	private static String URL_PATH = "/assets/upload-images";
 	
 	public String restore(MultipartFile file) {

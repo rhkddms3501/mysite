@@ -2,23 +2,19 @@ package com.douzone.mysite;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.context.annotation.Bean;
+
+import com.douzone.mysite.event.ApplicationContextEventListener;
 
 @SpringBootApplication
 public class MySiteApplication {
-
-	@Controller
-	public class TestController {
-		
-		@ResponseBody
-		@RequestMapping("/hi")
-		public String test() {
-			return "hiihizzzzzzzzzz";
-		}
-	}
 	
+	/* spring-servlet.xml, Application Context Event Listener */	
+	@Bean
+	public ApplicationContextEventListener applicationContextEventListener() {
+		return new ApplicationContextEventListener();
+	}
+
 	public static void main(String[] args) {	
 		SpringApplication.run(MySiteApplication.class, args);
 	}

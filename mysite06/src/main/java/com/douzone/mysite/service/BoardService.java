@@ -16,7 +16,7 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 
-	private static final int LIST_SIZE = 5; // 리스팅되는 게시물의 수
+//	private static final int LIST_SIZE = 5; // 리스팅되는 게시물의 수
 	private static final Long PAGE_SIZE = 10L; // 리스팅되는 게시물의 수
 
 	public Map<String, Object> getContentsList(String getOffset, String getSearchWord) {

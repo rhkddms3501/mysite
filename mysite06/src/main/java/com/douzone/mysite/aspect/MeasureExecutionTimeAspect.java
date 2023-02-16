@@ -21,10 +21,10 @@ public class MeasureExecutionTimeAspect {
 		
 		//after
 		sw.stop();
-		Long totalTime = sw.getTotalTimeMillis();
-		String className = pjp.getTarget().getClass().getName();
-	      String methodName = pjp.getSignature().getName();
-	      String taskName = className + "." + methodName;
+//		Long totalTime = sw.getTotalTimeMillis();
+//		String className = pjp.getTarget().getClass().getName();
+//	      String methodName = pjp.getSignature().getName();
+//	      String taskName = className + "." + methodName;
 //	      System.out.println("[Excution Time][" + taskName + "]   " + totalTime + "milis");
 		
 		
