@@ -32,5 +32,10 @@ public class UserService {
 	public void updateUser(UserVo vo) {
 		userRepository.update(vo);
 	}
+
+	public UserVo getUser(String email) {
+		
+		return userRepository.findByEmail(email);
+	}
 }
 

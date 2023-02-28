@@ -10,6 +10,62 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#join-form").submit(function(event){
+			event.preventDefault();
+			var name = $("#name").val();
+			if(name == ''){
+				alert("이름이 비었지요.");
+				$("#name").val('').focus();
+				return;
+			}
+			
+			if(!$("#img-check").is(":visible")){
+				alert("이메일 중복체크를 안했지요..");
+				return;
+			}
+			
+			this.submit();
+		});
+		
+		$("#email").change(function(){
+			$("#img-check").hide();
+			$("#btn-checkemail").show();
+		});
+		
+		$("#btn-checkemail").click(function(){
+			var email = $("#email").val();
+			if(email === ''){
+				return; // 사용자가 아무것도 입력 안했으면
+			}
+			$.ajax({
+				url:"${pageContext.request.contextPath }/user/api/checkemail?email=" + email,
+				type:"get",
+				dataType:"json",
+				error: function(xhr, status, error){
+					console.log(status, error)
+				},
+				success: function(response){
+					if(response.result === 'fail'){
+						console.error(message);
+						return;
+					}
+					
+					if(response.data){
+						alert("존재하는 이메일 이지요. 다른 이메일을 선택해 주시지요.");
+						$("#email").val("").focus();
+						return;
+					}
+					
+					$("#img-check").show();
+					$("#btn-checkemail").hide();
+				},
+			});
+		});
+	});
+</script>
 </head>
 <body>
 	<div id="container">
@@ -40,7 +96,8 @@
 
 					<label class="block-label" for="email">이메일</label>
 					<form:input path="email" />
-					<input type="button" value="중복체크">
+					<img id="img-check" src="${pageContext.request.contextPath }/assets/images/check.png" style="width:18px; vertical-align: bottom; display:none">
+					<input id="btn-checkemail" type="button" value="중복체크" style="display: ;">
 					<!-- messages_ko.propertice 에 있는 email? 아니면 userVo?? -->
 					<p style="color:#ff0000; text-align:left; padding:0">
 						<form:errors path="email" />
