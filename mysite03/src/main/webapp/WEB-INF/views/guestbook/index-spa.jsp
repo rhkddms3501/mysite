@@ -15,7 +15,6 @@
 
 // 화면에 렌더링 할 것
 var render = function(vo, mode) {
-	console.log("랜더 속입니다.");
 	var htmls = 
 		"<li data-no='" + vo.no + "'>" +
 		"	<strong>" + vo.name + "</strong>" +
@@ -30,7 +29,6 @@ var render = function(vo, mode) {
 
 // 처음에 리스트 가져올 것
 var fetch = function() {
-	console.log("fetch 속입니다...");
 	$.ajax({
 		url: "${pageContext.request.contextPath}/guestbook/api?sno=0",
 		type: "get",
@@ -40,9 +38,6 @@ var fetch = function() {
 				console.error(response.message);
 				return;
 			}
-			
-			console.log(response.data)
-			console.log("sdfsf", this);
 			response.data.forEach(function(vo){
 			render(vo);
 			});
@@ -75,7 +70,6 @@ $(function() {
 					console.error(response.message);
 					return;
 				}
-				console.log(response.data);
 				render(response.data, true);
 			}
 		});
@@ -88,13 +82,9 @@ $(function() {
 		modal: true,
 		buttons: {
 			"삭제": function() {
-				console.log($("#password-delete").val());
-				
 				var vo = {};
 				vo.no = $("#hidden-no").val();
 				vo.password = $("#password-delete").val();
-				
-				console.log(vo);
 				
 				$.ajax({
 					url: "${pageContext.request.contextPath}/guestbook/api",
@@ -107,18 +97,11 @@ $(function() {
 							console.error(response.message);
 							return;
 						}
-						console.log("ajax 통신 후");
-						console.log(">>>>>>", response.data);
-						
-						test();
-						test();
 						
 						$("li[data-no=" + vo.no + "]").remove();
 						
-						console.log($("#password-delete").val());
 						$("#password-delete").val("");
 						$("#dialog-delete-form").dialog('close');
-						
 					}
 				});
 			},
@@ -127,7 +110,6 @@ $(function() {
 				console.log($("#password-delete").val());
 				$("#password-delete").val("");
 				$(this).dialog('close');
-				console.log("취소의 this 확인 >> ", this)
 			}
 		}
 	});
@@ -137,14 +119,9 @@ $(function() {
 	// 메세지 삭제 버튼 click 이벤트 처리(Live Event)
 	$(document).on('click', "#list-guestbook li #delbtn", function(event){
 		event.preventDefault();
-		
 		$("#hidden-no").val($(this).data("no"));
-		console.log("글자 나오나 안나오나");
-		console.log($(this).attr("data-no"));
-		console.log($(this).data("no"));
 		$dialogDelete.dialog('open');
 	});
-
 
 	// 최초 리스트 가져오기
 	fetch();
