@@ -39,11 +39,14 @@ public class GuestbookController {
 	
 	@RequestMapping("/insert")
 	public String insert(GuestbookVo vo) {
-		System.out.println(vo);
 		guestbookService.addMessage(vo);
-		System.out.println(vo);
 		
 		return "redirect:/guestbook/list";
+	}
+	
+	@RequestMapping("/spa")
+	public String indexSPA() {
+		return "guestbook/index-spa";
 	}
 
 }
